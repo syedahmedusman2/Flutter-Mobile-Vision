@@ -28,21 +28,21 @@ class _HomeState extends State<Home> {
   bool _waitTapOcr = false;
   bool _showTextOcr = true;
   late Size _previewOcr;
+  List t=[];
   List<OcrText> _textsOcr = [];
   getText()async{
     List<OcrText> texts = [];
 try {
   texts = await FlutterMobileVision.read(
-    // flash: _torchOcr,
-    // autoFocus: _autoFocusOcr,
-    // multiple: _multipleOcr,
-    // showText: _showTextOcr,
-   
-    // preview: _previewOcr,
-    // camera: _cameraOcr,
     waitTap: true,
     fps: 2.0,
+    
   );
+  for (var text in texts) {
+    print(text.value);
+    t.add(text.value);
+    // print(t);
+  }
   print(texts);
 } on Exception {
   texts.add(new OcrText('Failed to recognize text.'));
@@ -58,14 +58,18 @@ try {
         fps: 5,
         multiple: true,
         
+        
 
       );
-      
       for(OcrText text in lst){
-        lst.add(text);
-        print(lst);
-        
+        result += text.value;
       }
+      
+      // for(OcrText text in lst){
+      //   lst.add(text);
+      //   print(lst);
+        
+      // }
 
     }catch(e){
       print(e);
@@ -74,7 +78,7 @@ try {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: (){getText();},child: Text("Start"),),
+      floatingActionButton: FloatingActionButton(onPressed: (){startScan();},child: Text("Start"),),
       appBar: AppBar(
         title: Text('Text Recognation'),
       ),
