@@ -21,6 +21,7 @@ class _HomeState extends State<Home> {
     
     super.initState();
   }
+  // Variables for custumzation of scanner
   int _cameraOcr = FlutterMobileVision.CAMERA_BACK;
   bool _autoFocusOcr = true;
   bool _torchOcr = false;
@@ -30,24 +31,7 @@ class _HomeState extends State<Home> {
   late Size _previewOcr;
   List t=[];
   List<OcrText> _textsOcr = [];
-  getText()async{
-    List<OcrText> texts = [];
-try {
-  texts = await FlutterMobileVision.read(
-    waitTap: true,
-    fps: 2.0,
-    
-  );
-  for (var text in texts) {
-    print(text.value);
-    t.add(text.value);
-    // print(t);
-  }
-  print(texts);
-} on Exception {
-  texts.add(new OcrText('Failed to recognize text.'));
-}
-  }
+ 
   startScan()async{
     print("HELLO WORKD");
     List<OcrText> lst = [];
